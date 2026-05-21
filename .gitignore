@@ -1,0 +1,32 @@
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Build/test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Local config
+.env
+.env.*
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dataset files are large and should stay local.
+# Keep only .gitkeep placeholders so GitHub shows the expected folders.
+data/**
+!data/
+!data/**/
+!data/**/.gitkeep
+
