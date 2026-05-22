@@ -21,7 +21,7 @@ The focus is learning practical computer vision concepts, not building a product
 
 ## 2) Core Concepts
 
-## 2.1 Stereo Vision
+### 2.1 Stereo Vision
 
 A stereo setup uses two horizontally separated cameras viewing the same scene.
 
@@ -31,7 +31,7 @@ A stereo setup uses two horizontally separated cameras viewing the same scene.
 
 Nearby objects have larger disparity; far objects have smaller disparity.
 
-## 2.2 Depth from Disparity
+### 2.2 Depth from Disparity
 
 Depth is estimated by:
 
@@ -49,7 +49,7 @@ In this project:
 - `focal_length_px` and `baseline_m` are loaded from a simple calibration file.
 - depth is computed only for valid disparity pixels (`d > 0`).
 
-## 2.3 Why StereoSGBM
+### 2.3 Why StereoSGBM
 
 The project uses OpenCV **StereoSGBM** (`cv2.StereoSGBM_create`) because it is:
 
@@ -59,7 +59,7 @@ The project uses OpenCV **StereoSGBM** (`cv2.StereoSGBM_create`) because it is:
 
 It estimates disparity by matching local image structure while regularizing across directions.
 
-## 2.4 Why Depth Is Noisy
+### 2.4 Why Depth Is Noisy
 
 Stereo matching struggles when correspondence is ambiguous:
 
@@ -93,7 +93,7 @@ scripts/
 
 data/
   sample/               # sample left/right/calibration placeholders
-  KITTI_RAW DATA/       # KITTI-style dataset structure placeholders
+  KITTI_RAW DATA/       # current repo folder name (includes a space)
 
 outputs/
   depth.npy             # metric depth map (generated)
@@ -105,29 +105,29 @@ outputs/
 
 ## 4) Pipeline Walkthrough
 
-## Step A: Load Stereo Pair
+### Step A: Load Stereo Pair
 
 `load_stereo_pair()` reads left/right images as grayscale and validates shape equality.
 
 Why grayscale: Stereo matching depends on intensity structure, not color semantics.
 
-## Step B: Compute Disparity
+### Step B: Compute Disparity
 
 `compute_disparity()` runs StereoSGBM with configured parameters (`numDisparities`, `blockSize`, penalties).
 
 OpenCV returns disparity scaled by 16, so values are divided by 16.0.
 
-## Step C: Convert to Depth
+### Step C: Convert to Depth
 
 `disparity_to_depth()` applies the stereo formula on valid pixels (`disparity > 0`).
 
 Invalid/unknown pixels remain 0 in depth map.
 
-## Step D: Visualize
+### Step D: Visualize
 
 `normalize_for_visualization()` maps valid values to 8-bit range for PNG output while preserving invalid zeros.
 
-## Step E: Interactive Inspection
+### Step E: Interactive Inspection
 
 ### Pixel-level click depth (`click_depth_ui.py`)
 
@@ -190,7 +190,7 @@ Dependencies:
 
 ## 8) How to Run
 
-## 8.1 Generate disparity and depth outputs
+### 8.1 Generate disparity and depth outputs
 
 ```bash
 python scripts/run_depth_demo.py
@@ -202,7 +202,7 @@ Creates:
 - `outputs/depth.png`
 - `outputs/depth.npy`
 
-## 8.2 Pixel click UI
+### 8.2 Pixel click UI
 
 ```bash
 python scripts/click_depth_ui.py
@@ -210,7 +210,7 @@ python scripts/click_depth_ui.py
 
 Click anywhere to print/display local depth estimate.
 
-## 8.3 Object click UI (YOLO + depth)
+### 8.3 Object click UI (YOLO + depth)
 
 ```bash
 python scripts/click_object_depth_ui.py
