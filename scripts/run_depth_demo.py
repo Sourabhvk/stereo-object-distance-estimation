@@ -2,13 +2,14 @@ from pathlib import Path
 import sys
 
 import cv2
+import numpy as np
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
-from src.calibration import load_calibration
-from src.stereo_depth import (
+from src.core.calibration import load_calibration
+from src.core.stereo_depth import (
     compute_disparity,
     disparity_to_depth,
     load_stereo_pair,
@@ -42,9 +43,11 @@ def main():
 
     cv2.imwrite(str(output_dir / "disparity.png"), disparity_vis)
     cv2.imwrite(str(output_dir / "depth.png"), depth_vis)
+    np.save(output_dir / "depth.npy", depth)
 
     print(f"Saved disparity visualization to: {output_dir / 'disparity.png'}")
     print(f"Saved depth visualization to: {output_dir / 'depth.png'}")
+    print(f"Saved metric depth array to: {output_dir / 'depth.npy'}")
 
 
 if __name__ == "__main__":
