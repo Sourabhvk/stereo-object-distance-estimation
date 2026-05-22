@@ -129,13 +129,13 @@ Invalid/unknown pixels remain 0 in depth map.
 
 ### Step E: Interactive Inspection
 
-### Pixel-level click depth (`click_depth_ui.py`)
+#### Pixel-level click depth (`click_depth_ui.py`)
 
 - Loads left image + `outputs/depth.npy`.
 - On click, samples a local window.
 - Returns median of valid depths in that patch for stability.
 
-### Object-level click depth (`click_object_depth_ui.py`)
+#### Object-level click depth (`click_object_depth_ui.py`)
 
 - Runs YOLO (`yolov8n.pt`) on the left image.
 - Draws detections and lets user click an object.
