@@ -1,0 +1,23 @@
+Stereo Vision Notes
+
+Baseline:
+The baseline is the physical distance between the left and right cameras.
+
+For KITTI-style stereo images, the baseline is approximately:
+baseline_m = 0.54 meters
+
+Depth formula:
+depth = focal_length * baseline / disparity
+
+In this project:
+depth_m = focal_length_px * baseline_m / disparity_px
+
+Example calibration values:
+focal_length_px = 721.5377
+baseline_m = 0.54
+
+Meaning:
+- focal_length_px is the camera focal length measured in pixels.
+- baseline_m is the distance between the stereo cameras in meters.
+- disparity_px is how far the same point shifts between the left and right images.
+- depth_m is the estimated distance from the camera in meters.
