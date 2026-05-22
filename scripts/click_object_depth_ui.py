@@ -49,6 +49,22 @@ def main():
 
     display = draw_detections(image, detections)
     window_name = "Click Object Depth UI"
+    # Spatial method: 'select' or 'weighted'. Toggle with key 'm'.
+    spatial_method = "select"
+
+    def draw_overlay(img, method):
+        txt = f"spatial: {method}  (press 'm' to toggle)"
+        cv2.putText(
+            img,
+            txt,
+            (10, 20),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.6,
+            (200, 200, 200),
+            2,
+            cv2.LINE_AA,
+        )
+        return img
 
     def on_mouse(event, x, y, flags, param):
         nonlocal display
@@ -64,7 +80,7 @@ def main():
             cv2.circle(display, (x, y), 5, (0, 0, 255), -1)
             return
 
-        depth_m = estimate_box_depth(depth, detection["box"])
+        depth_m = estimate_box_depth(depth, detection["box"], spatial_method=spatial_method)
         x1, y1, x2, y2 = detection["box"]
 
         if depth_m is None:
@@ -90,6 +106,8 @@ def main():
             2,
             cv2.LINE_AA,
         )
+        # Re-add overlay after drawing
+        display = draw_overlay(display.copy(), spatial_method)
 
     cv2.namedWindow(window_name)
     cv2.setMouseCallback(window_name, on_mouse)
@@ -100,6 +118,12 @@ def main():
 
         if key == 27 or key == ord("q"):
             break
+        # Toggle spatial method with 'm'
+        if key == ord("m"):
+            spatial_method = "weighted" if spatial_method == "select" else "select"
+            print(f"spatial method -> {spatial_method}")
+            display = draw_detections(image, detections)
+            display = draw_overlay(display, spatial_method)
 
     cv2.destroyAllWindows()
 
