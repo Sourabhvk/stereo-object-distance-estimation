@@ -30,3 +30,9 @@ data/**
 !data/**/
 !data/**/.gitkeep
 
+# Generated demo outputs
+outputs/
+
+# Downloaded model weights
+*.pt
+

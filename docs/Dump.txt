@@ -1,0 +1,82 @@
+Stereo Vision Notes
+
+Baseline:
+The baseline is the physical distance between the left and right cameras.
+
+For KITTI-style stereo images, the baseline is approximately:
+baseline_m = 0.54 meters
+
+Depth formula:
+depth = focal_length * baseline / disparity
+
+In this project:
+depth_m = focal_length_px * baseline_m / disparity_px
+
+Example calibration values:
+focal_length_px = 721.5377
+baseline_m = 0.54
+
+Meaning:
+- focal_length_px is the camera focal length measured in pixels.
+- baseline_m is the distance between the stereo cameras in meters.
+- disparity_px is how far the same point shifts between the left and right images.
+- depth_m is the estimated distance from the camera in meters.
+
+
+README Planning Notes
+
+A strong README matters a lot for internships because it explains not just what the code does, but also the engineering thinking behind the project.
+
+README should include:
+- pipeline diagram
+- depth formula explanation
+- limitations
+- failure cases
+- why KITTI was chosen
+- future improvements
+
+Pipeline diagram idea:
+left image + right image
+-> StereoSGBM disparity estimation
+-> disparity map
+-> depth formula
+-> metric depth map
+-> visual outputs and click/object depth UI
+
+Depth formula:
+depth_m = focal_length_px * baseline_m / disparity_px
+
+Why KITTI was chosen:
+- KITTI provides real stereo driving scenes.
+- KITTI images are already commonly used in stereo vision projects.
+- It gives a practical outdoor setting for distance estimation.
+- The stereo camera setup has known calibration values, including focal length and baseline.
+
+Limitations:
+- StereoSGBM is sensitive to lighting, textureless regions, reflections, and occlusions.
+- Depth quality depends heavily on calibration and rectification.
+- The current calibration values are KITTI-style approximations, not custom-calibrated values for every image.
+- The depth map is approximate, not a high-precision measurement system.
+- YOLO detects object locations only; it does not estimate depth by itself.
+
+Failure cases:
+- Flat walls, sky, road, or textureless objects may produce weak disparity.
+- Reflective surfaces like glass or shiny cars can confuse stereo matching.
+- Very far objects may have tiny disparity, causing unstable depth.
+- Occluded areas visible in one camera but not the other may produce invalid depth.
+- Clicking outside a detected object box will not return object-level depth.
+
+Future improvements:
+- Add support for multiple stereo datasets such as Middlebury or ETH3D.
+- Add command-line arguments for custom left/right image paths.
+- Add better calibration parsing from official KITTI calibration files.
+- Add confidence filtering for noisy disparity regions.
+- Add object distance estimation using YOLO bounding boxes as an optional module.
+- Add a polished README with diagrams and example output images.
+
+
+Why StereoSGBM over deep depth models?
+Why KITTI?
+Why disparity noise happens?
+Why textureless regions fail?
+Why YOLO distance can be inaccurate?
