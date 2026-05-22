@@ -93,13 +93,15 @@ scripts/
 
 data/
   sample/               # sample left/right/calibration placeholders
-  KITTI_RAW DATA/       # current repo folder name (includes a space)
+  KITTI_RAW_DATA/       # KITTI-style dataset structure placeholders (logical name)
 
 outputs/
   depth.npy             # metric depth map (generated)
   depth.png             # depth visualization (generated)
   disparity.png         # disparity visualization (generated)
 ```
+
+Note: the checked-in KITTI raw-data directory in this repository currently uses a spaced folder name, so prefer quoting paths in shell commands when needed.
 
 ---
 
