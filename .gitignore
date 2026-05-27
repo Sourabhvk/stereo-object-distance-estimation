@@ -16,6 +16,7 @@ build/
 # Local config
 .env
 .env.*
+docs/LEARN_IT.md
 
 # Editor/OS
 .vscode/
